@@ -1347,6 +1347,21 @@ input[type="number"] {
   appearance: textfield;
 }
 </style>
+
+<style id="final-folder-add-modal-fix">
+/* Shto Folder modal must be above fixed Produktet folder controls */
+#productFolderModal,
+#productFolderModal.closing{
+    position:fixed !important;
+    inset:0 !important;
+    z-index:2147483646 !important;
+    isolation:isolate !important;
+}
+#productFolderModal .modal{
+    position:relative;
+    z-index:2147483647 !important;
+}
+</style>
 </head>
 
 <body>
@@ -1388,7 +1403,7 @@ input[type="number"] {
     </div>
 
     <div class="menu" onclick="showPage('money',this)">
-        💰 Arka
+        💰 Hyrje / Dalje
     </div>
 
     <div class="menu" onclick="showPage('history',this)">
@@ -1530,7 +1545,7 @@ input[type="number"] {
 </div>
 
 
-<!-- ================= END CALCULATOR ================= -->
+
 
 <!-- =====================================================
      PRODUCTS
@@ -1748,12 +1763,12 @@ input[type="number"] {
 
         <div class="panel-header">
 
-            <strong>💰 Arka</strong>
+            <strong>💰 Hyrje / Dalje</strong>
 
             <button
                 class="btn blue"
                 onclick="addMoneyMovement()">
-                ＋ Shto në arkë
+                ＋ Shto Hyrje / Dalje
             </button>
 
         </div>
@@ -1798,7 +1813,7 @@ input[type="number"] {
                 <input
                     type="text"
                     id="moneyTextSearch"
-                    placeholder="🔎 Kërko përshkrimin..."
+                    placeholder="🔎 Kërko përshkrimin ose arkën..."
                     oninput="renderMoney()"
                 >
 
@@ -1819,6 +1834,7 @@ input[type="number"] {
                     <tr>
                         <th>Data</th>
                         <th>Përshkrimi</th>
+                        <th>Arka</th>
                         <th>Lloji</th>
                         <th>Shuma</th>
                         <th></th>
@@ -1832,7 +1848,7 @@ input[type="number"] {
 
                     <tr class="total-row">
 
-                        <td colspan="3">
+                        <td colspan="4">
                             GJENDJA
                         </td>
 
@@ -2256,7 +2272,7 @@ input[type="number"] {
             <div class="setting">
 
                 <div class="setting-title">
-                    Arka
+                    Hyrje / Dalje
                 </div>
 
                 <input
@@ -2325,7 +2341,7 @@ input[type="number"] {
         <div class="modal-header">
 
             <h2>
-                💰 Shto në arkë
+                💰 Shto Hyrje / Dalje
             </h2>
 
             <button
@@ -2347,6 +2363,18 @@ input[type="number"] {
                     <input
                         id="moneyDescription"
                         placeholder="p.sh. Qera"
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Arka</label>
+
+                    <input
+                        id="moneyArka"
+                        type="text"
+                        placeholder="p.sh. Arka 1"
                     >
 
                 </div>
@@ -3509,7 +3537,7 @@ function showPage(page,element){
         wolt:"Wolt",
         products:"Produktet",
         supplies:"Furnizime",
-        money:"Arka",
+        money:"Hyrje / Dalje",
         history:"Historiku"
     };
 
@@ -5794,6 +5822,10 @@ function addMoneyMovement(){
     ).value="";
 
     document.getElementById(
+        "moneyArka"
+    ).value="";
+
+    document.getElementById(
         "moneyAmount"
     ).value="";
 
@@ -5914,6 +5946,11 @@ function saveMoneyMovement(){
             "moneyDescription"
         ).value.trim();
 
+    const arka=
+        document.getElementById(
+            "moneyArka"
+        ).value.trim();
+
     const type=
         document.getElementById(
             "moneyType"
@@ -5945,6 +5982,8 @@ function saveMoneyMovement(){
         dateKey:dateKey(),
 
         description:description,
+
+        arka:arka,
 
         type:type,
 
@@ -6064,9 +6103,8 @@ function renderMoney(){
                     Number(yearFilter);
 
                 const text=
-                    String(
-                        movement.description||""
-                    )
+                    (String(movement.description||"") + " " +
+                     String(movement.arka||""))
                     .toLowerCase();
 
                 const textMatch=
@@ -6163,6 +6201,14 @@ function renderMoney(){
                               `
                             : ""
                     }
+
+                </td>
+
+                <td>
+
+                    ${escapeHTML(
+                        movement.arka || ""
+                    )}
 
                 </td>
 
@@ -6925,6 +6971,32 @@ table{width:100%;border-collapse:collapse;font-size:16px}th,td{padding:4px 0;ver
 
 .kg-product-btn{padding:5px 9px!important;font-size:13px!important;min-width:40px!important}.kg-price-badge{font-size:12px;color:var(--muted);margin-top:4px}.kg-badge-v2{font-size:12px;color:var(--muted);font-weight:700;margin-left:5px}
 </style>
+
+<style id="final-modal-layer-fix">
+/* Settings / Help must always be above the fixed header and Produktet controls */
+#settingsModal,
+#helpModal{
+    position:fixed !important;
+    inset:0 !important;
+    z-index:2147483647 !important;
+    isolation:isolate !important;
+}
+
+#settingsModal .modal,
+#helpModal .modal{
+    position:relative;
+    z-index:10001 !important;
+}
+
+/* Keep the normal fixed navigation below all modal overlays */
+.top{z-index:3000 !important;}
+.products-layout .product-folders-box{z-index:2900 !important;}
+#products .products-panel > .panel-header{z-index:2800 !important;}
+.sidebar{z-index:2000 !important;}
+
+/* Product picker remains below Settings / Help */
+#easyPosProductPicker{z-index:4000 !important;}
+</style>
 </head>
 <body>
 ${receiptLogo?`<div style="text-align:center;margin:0 0 6px"><img src="${receiptLogo}" style="display:block;max-width:70mm;max-height:28mm;width:auto;height:auto;margin:0 auto;object-fit:contain"></div>`:""}
@@ -7164,13 +7236,28 @@ function confirmDelete(){
    SETTINGS
 ===================================================== */
 
-function openHelp(){const m=document.getElementById("helpModal");if(m){m.classList.remove("closing");m.classList.add("active");}}
+function openHelp(){
+    const m=document.getElementById("helpModal");
+    if(m){
+        // Move the modal to the end of <body> so fixed page elements can never paint above it.
+        if(m.parentElement !== document.body) document.body.appendChild(m);
+        document.body.appendChild(m);
+        m.style.zIndex="2147483647";
+        m.classList.remove("closing");
+        m.classList.add("active");
+    }
+}
 function closeHelp(){const m=document.getElementById("helpModal");if(!m)return;m.classList.remove("active");m.classList.add("closing");setTimeout(()=>m.classList.remove("closing"),320);}
 function closeHelpOutside(e){if(e.target.id==="helpModal")closeHelp();}
 
 function openSettings(){
 
     const modal = document.getElementById("settingsModal");
+
+    // Move the modal to the end of <body> so fixed page elements can never paint above it.
+    if(modal.parentElement !== document.body) document.body.appendChild(modal);
+    document.body.appendChild(modal);
+    modal.style.zIndex="2147483647";
 
     modal.classList.remove("closing");
     modal.classList.add("active");
@@ -7574,6 +7661,20 @@ document.addEventListener("click", function(event){
 });
 </script>
 
+
+<style id="final-folder-delete-modal-fix">
+/* Folder delete confirmation must be above fixed Produktet folder controls */
+#confirmModal,
+#confirmModal.closing{
+    position:fixed !important;
+    inset:0 !important;
+    z-index:10000 !important;
+}
+#confirmModal .modal{
+    position:relative;
+    z-index:10001 !important;
+}
+</style>
 </body>
 
 <style id="follow-screen-layout-fix">
