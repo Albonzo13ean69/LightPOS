@@ -4,4 +4,6 @@ LightPOS is a modern, lightweight POS and business management system designed to
 For now the only language that is in the website are (for now):ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ
 · Albanianㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ ㅤㅤㅤㅤㅤㅤㅤㅤㅤ
 
-###### I will add more in the future
+###### I will add more in the future 
+If you want to make a translation in YOUR language please feel free to make a issue with the translations in your language.
+###### Edit: I will make the issues available later since for now theres no english version.
