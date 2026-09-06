@@ -998,33 +998,33 @@ to{
 
 #settingsModal.active{
     display:flex;
-    animation: exelposOverlayIn .22s ease both;
+    animation: lightposOverlayIn .22s ease both;
 }
 
 #settingsModal.active .modal{
-    animation: exelposModalOpen .32s cubic-bezier(.22,.61,.36,1) both;
+    animation: lightposModalOpen .32s cubic-bezier(.22,.61,.36,1) both;
 }
 
 #settingsModal.closing{
     display:flex;
-    animation: exelposOverlayOut .22s ease both;
+    animation: posOverlayOut .22s ease both;
 }
 
 #settingsModal.closing .modal{
-    animation: exelposModalClose .30s cubic-bezier(.55,.085,.68,.53) both;
+    animation: lightposModalClose .30s cubic-bezier(.55,.085,.68,.53) both;
 }
 
-@keyframes exelposOverlayIn{
+@keyframes lightposOverlayIn{
     from{ opacity:0; }
     to{ opacity:1; }
 }
 
-@keyframes exelposOverlayOut{
+@keyframes lightposOverlayOut{
     from{ opacity:1; }
     to{ opacity:0; }
 }
 
-@keyframes exelposModalOpen{
+@keyframes lightposModalOpen{
     from{
         opacity:0;
         transform:translateY(55px) scale(.98);
@@ -1035,7 +1035,7 @@ to{
     }
 }
 
-@keyframes exelposModalClose{
+@keyframes lightposModalClose{
     from{
         opacity:1;
         transform:translateY(0) scale(1);
@@ -1049,12 +1049,12 @@ to{
 
 /* Delete / Fshi transition */
 .delete-removing{
-    animation: exelposDeleteOut .30s cubic-bezier(.4,0,.7,.2) forwards !important;
+    animation: LightposDeleteOut .30s cubic-bezier(.4,0,.7,.2) forwards !important;
     pointer-events:none !important;
     overflow:hidden !important;
 }
 
-@keyframes exelposDeleteOut{
+@keyframes lightposDeleteOut{
     0%{
         opacity:1;
         transform:translateX(0);
@@ -1083,20 +1083,20 @@ to{
 
 #confirmModal.active{
     display:flex;
-    animation: exelposOverlayIn .22s ease both;
+    animation: LightposOverlayIn .22s ease both;
 }
 
 #confirmModal.active .modal{
-    animation: exelposModalOpen .32s cubic-bezier(.22,.61,.36,1) both;
+    animation: LightposModalOpen .32s cubic-bezier(.22,.61,.36,1) both;
 }
 
 #confirmModal.closing{
     display:flex;
-    animation: exelposOverlayOut .22s ease both;
+    animation: LightposOverlayOut .22s ease both;
 }
 
 #confirmModal.closing .modal{
-    animation: exelposModalClose .30s cubic-bezier(.55,.085,.68,.53) both;
+    animation: LightposModalClose .30s cubic-bezier(.55,.085,.68,.53) both;
 }
 
 
@@ -1106,10 +1106,10 @@ to{
 
 /* Keep the existing page display/visibility logic untouched. */
 .page.page-switching{
-    animation: exelposCleanPageIn .65s ease both;
+    animation: LightposCleanPageIn .65s ease both;
 }
 
-@keyframes exelposCleanPageIn{
+@keyframes LightposCleanPageIn{
     from{
         opacity:.35;
     }
@@ -1392,7 +1392,7 @@ body > #productFolderModal .modal {
 <aside class="sidebar">
 
     <div class="logo">
-        Exel<span>POS</span>
+        Light<span>POS</span>
     </div>
 
     <div class="menu-title">MENU</div>
@@ -2098,7 +2098,7 @@ body > #productFolderModal .modal {
                 </div>
 
                 <div class="setting-description">
-                    Zgjidh ngjyrat e ExelPOS.
+                    Zgjidh ngjyrat e LightPOS.
                 </div>
 
                 <div class="theme-grid">
@@ -2593,24 +2593,24 @@ body > #productFolderModal .modal {
 
 let products =
     JSON.parse(
-        localStorage.getItem("exelpos_products")
+        localStorage.getItem("Lightpos_products")
     ) || [];
 
-let productFolders = JSON.parse(localStorage.getItem("exelpos_product_folders")) || [];
+let productFolders = JSON.parse(localStorage.getItem("Lightpos_product_folders")) || [];
 
 // Start the folder system with only "Të gjitha".
 // Old folder data from earlier versions is cleared once; folders created afterward persist normally.
-if (localStorage.getItem("exelpos_product_folders_v2") !== "1") {
+if (localStorage.getItem("Lightpos_product_folders_v2") !== "1") {
     productFolders = [];
-    localStorage.setItem("exelpos_product_folders", JSON.stringify([]));
-    localStorage.setItem("exelpos_product_folders_v2", "1");
+    localStorage.setItem("Lightpos_product_folders", JSON.stringify([]));
+    localStorage.setItem("Lightpos_product_folders_v2", "1");
 }
 
 let activeProductFolder = "all";
 
 let sales =
     JSON.parse(
-        localStorage.getItem("exelpos_sales")
+        localStorage.getItem("Lightpos_sales")
     ) || [];
 
 // SHITJE invoice numbering is DAILY. This uses the REAL calendar date,
@@ -2620,9 +2620,9 @@ function getRealCalendarDayKey(){
     return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
 }
 
-let invoiceCards = JSON.parse(localStorage.getItem("exelpos_invoice_cards") || "[]");
-let invoiceCounter = Number(localStorage.getItem("exelpos_invoice_counter") || 0);
-let invoiceRealDay = localStorage.getItem("exelpos_shitje_invoice_day") || "";
+let invoiceCards = JSON.parse(localStorage.getItem("Lightpos_invoice_cards") || "[]");
+let invoiceCounter = Number(localStorage.getItem("Lightpos_invoice_counter") || 0);
+let invoiceRealDay = localStorage.getItem("Lightpos_shitje_invoice_day") || "";
 const realTodayAtLoad = getRealCalendarDayKey();
 
 // A different real calendar day ALWAYS starts Shitje at Faturë #1.
@@ -2631,36 +2631,36 @@ if(invoiceRealDay !== realTodayAtLoad){
     invoiceCards = [];
     sales = [];
     invoiceRealDay = realTodayAtLoad;
-    localStorage.setItem("exelpos_shitje_invoice_day", invoiceRealDay);
-    localStorage.setItem("exelpos_invoice_counter", "0");
-    localStorage.setItem("exelpos_invoice_cards", "[]");
-    localStorage.setItem("exelpos_sales", "[]");
+    localStorage.setItem("Lightpos_shitje_invoice_day", invoiceRealDay);
+    localStorage.setItem("Lightpos_invoice_counter", "0");
+    localStorage.setItem("Lightpos_invoice_cards", "[]");
+    localStorage.setItem("Lightpos_sales", "[]");
 }
 let currentInvoiceNumber = 1;
 
 let woltOrders =
     JSON.parse(
-        localStorage.getItem("exelpos_wolt_orders")
+        localStorage.getItem("Lightpos_wolt_orders")
     ) || [];
 
 let supplies =
     JSON.parse(
-        localStorage.getItem("exelpos_supplies")
+        localStorage.getItem("Lightpos_supplies")
     ) || [];
 
 let moneyMovements =
     JSON.parse(
-        localStorage.getItem("exelpos_money")
+        localStorage.getItem("Lightpos_money")
     ) || [];
 
 let history =
     JSON.parse(
-        localStorage.getItem("exelpos_history")
+        localStorage.getItem("Lightpos_history")
     ) || [];
 
 let currentDay =
     localStorage.getItem(
-        "exelpos_current_day"
+        "Lightpos_current_day"
     ) || getDate();
 
 // Detect midnight while Shitje is left open. This checks the real calendar date,
@@ -2721,7 +2721,7 @@ function archiveDayAutomatically(oldDayKey){
 
 function ensureNewInvoiceDay(){
     const today = getRealCalendarDayKey();
-    const savedDay = localStorage.getItem("exelpos_shitje_invoice_day") || "";
+    const savedDay = localStorage.getItem("Lightpos_shitje_invoice_day") || "";
 
     if(savedDay !== today){
         // Archive the complete previous day BEFORE clearing its invoices/sales.
@@ -2733,10 +2733,10 @@ function ensureNewInvoiceDay(){
         sales = [];
         invoiceCards = [];
 
-        localStorage.setItem("exelpos_shitje_invoice_day", today);
-        localStorage.setItem("exelpos_invoice_counter", "0");
-        localStorage.setItem("exelpos_invoice_cards", "[]");
-        localStorage.setItem("exelpos_sales", "[]");
+        localStorage.setItem("Lightpos_shitje_invoice_day", today);
+        localStorage.setItem("Lightpos_invoice_counter", "0");
+        localStorage.setItem("Lightpos_invoice_cards", "[]");
+        localStorage.setItem("Lightpos_sales", "[]");
 
         currentDay = isoToDisplayDate(today) || getDate();
         save();
@@ -2781,7 +2781,7 @@ const defaultShortcuts={
 let shortcuts =
     JSON.parse(
         localStorage.getItem(
-            "exelpos_shortcuts"
+            "Lightpos_shortcuts"
         )
     ) || {...defaultShortcuts};
 
@@ -2854,7 +2854,7 @@ const themes={
 
 };
 
-let receiptLogo = localStorage.getItem("exelpos_receipt_logo") || "";
+let receiptLogo = localStorage.getItem("Lightpos_receipt_logo") || "";
 
 function handleReceiptLogo(event){
     const file=event.target.files && event.target.files[0];
@@ -2863,7 +2863,7 @@ function handleReceiptLogo(event){
     const reader=new FileReader();
     reader.onload=function(){
         receiptLogo=reader.result;
-        localStorage.setItem("exelpos_receipt_logo",receiptLogo);
+        localStorage.setItem("Lightpos_receipt_logo",receiptLogo);
         updateReceiptLogoPreview();
     };
     reader.readAsDataURL(file);
@@ -2871,7 +2871,7 @@ function handleReceiptLogo(event){
 
 function removeReceiptLogo(){
     receiptLogo="";
-    localStorage.removeItem("exelpos_receipt_logo");
+    localStorage.removeItem("Lightpos_receipt_logo");
     const input=document.getElementById("receiptLogoInput");
     if(input) input.value="";
     updateReceiptLogoPreview();
@@ -2886,7 +2886,7 @@ function updateReceiptLogoPreview(){
 
 let currentTheme =
     localStorage.getItem(
-        "exelpos_theme"
+        "Lightpos_theme"
     ) || "dark";
 
 
@@ -2926,7 +2926,7 @@ function setTheme(theme){
     );
 
     localStorage.setItem(
-        "exelpos_theme",
+        "Lightpos_theme",
         theme
     );
 
@@ -3276,51 +3276,51 @@ function escapeHTML(value){
 function save(){
 
     localStorage.setItem(
-        "exelpos_products",
+        "Lightpos_products",
         JSON.stringify(products)
     );
 
-    localStorage.setItem("exelpos_product_folders", JSON.stringify(productFolders));
+    localStorage.setItem("Lightpos_product_folders", JSON.stringify(productFolders));
 
     localStorage.setItem(
-        "exelpos_sales",
+        "Lightpos_sales",
         JSON.stringify(sales)
     );
 
-    localStorage.setItem("exelpos_invoice_cards", JSON.stringify(invoiceCards));
+    localStorage.setItem("Lightpos_invoice_cards", JSON.stringify(invoiceCards));
 
     localStorage.setItem(
-        "exelpos_wolt_orders",
+        "Lightpos_wolt_orders",
         JSON.stringify(woltOrders)
     );
 
     localStorage.setItem(
-        "exelpos_supplies",
+        "Lightpos_supplies",
         JSON.stringify(supplies)
     );
 
     localStorage.setItem(
-        "exelpos_money",
+        "Lightpos_money",
         JSON.stringify(moneyMovements)
     );
 
     localStorage.setItem(
-        "exelpos_history",
+        "Lightpos_history",
         JSON.stringify(history)
     );
 
     localStorage.setItem(
-        "exelpos_current_day",
+        "Lightpos_current_day",
         currentDay
     );
 
     localStorage.setItem(
-        "exelpos_shitje_invoice_day",
+        "Lightpos_shitje_invoice_day",
         getRealCalendarDayKey()
     );
 
     localStorage.setItem(
-        "exelpos_shortcuts",
+        "Lightpos_shortcuts",
         JSON.stringify(shortcuts)
     );
 }
@@ -4522,8 +4522,8 @@ function newInvoice(){
   invoiceCounter = num + 1;
   currentInvoiceNumber = invoiceCounter;
   sales = [];
-  localStorage.setItem("exelpos_invoice_counter", String(invoiceCounter));
-  localStorage.setItem("exelpos_shitje_invoice_day", getRealCalendarDayKey());
+  localStorage.setItem("Lightpos_invoice_counter", String(invoiceCounter));
+  localStorage.setItem("Lightpos_shitje_invoice_day", getRealCalendarDayKey());
   save();
   renderInvoiceCards();
   renderSales();
@@ -4541,7 +4541,7 @@ function addSale(product=null){
     if(!currentInvoiceNumber){
         invoiceCounter = Math.max(invoiceCounter, 0) + 1;
         currentInvoiceNumber = invoiceCounter;
-        localStorage.setItem("exelpos_invoice_counter", String(invoiceCounter));
+        localStorage.setItem("Lightpos_invoice_counter", String(invoiceCounter));
     }
 
     sales.push({
@@ -4715,13 +4715,13 @@ function renderInvoiceCards(){
  const old=(Array.isArray(invoiceCards)?invoiceCards:[]).filter(x=>Number(x.invoiceNumber)!==Number(currentInvoiceNumber)).sort((a,b)=>(Number(b.invoiceNumber)||0)-(Number(a.invoiceNumber)||0));
  old.forEach(function(inv){ const card=document.createElement("div"); card.className="wolt-order-card"; const products=Array.isArray(inv.products)?inv.products:[]; const total=products.reduce((a,x)=>a+(Number.isFinite(Number(x.total))?Number(x.total):(Number(x.quantity)||0)*(Number(x.price)||0)),0); card.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><strong>🧾 Faturë #'+inv.invoiceNumber+'</strong><div><button class="btn blue" type="button" onclick="openArchivedInvoice('+Number(inv.invoiceNumber)+')">Shiko</button> <button class="btn blue" type="button" onclick="printArchivedInvoice('+Number(inv.invoiceNumber)+')">🖨️ Printo Faturën</button> <button class="btn" type="button" onclick="deleteInvoiceCard('+Number(inv.invoiceNumber)+')">🗑️ Fshi Faturën</button></div></div><div style="margin-top:8px;color:var(--muted)">'+products.length+' produkt(e) · '+formatMoney(total)+'</div>'; host.appendChild(card); });
 }
-function deleteInvoiceCard(n){ const num=Number(n); const i=invoiceCards.findIndex(x=>Number(x.invoiceNumber)===num); if(i<0)return; invoiceCards.splice(i,1); localStorage.setItem("exelpos_invoice_cards",JSON.stringify(invoiceCards)); save(); renderInvoiceCards(); renderSales(); renderMoney(); }
+function deleteInvoiceCard(n){ const num=Number(n); const i=invoiceCards.findIndex(x=>Number(x.invoiceNumber)===num); if(i<0)return; invoiceCards.splice(i,1); localStorage.setItem("Lightpos_invoice_cards",JSON.stringify(invoiceCards)); save(); renderInvoiceCards(); renderSales(); renderMoney(); }
 window.deleteInvoiceCard=deleteInvoiceCard;
 
 let archivedInvoiceEditNumber=null;
 function openArchivedInvoice(n){ const inv=invoiceCards.find(x=>Number(x.invoiceNumber)===Number(n)); if(!inv)return; archivedInvoiceEditNumber=Number(n); const body=document.getElementById("archivedInvoiceModalBody"); const title=document.getElementById("archivedInvoiceModalTitle"); if(title)title.textContent="🧾 Faturë #"+n; if(!body)return; const products=Array.isArray(inv.products)?inv.products:[]; body.innerHTML='<div style="overflow:auto"><table><thead><tr><th>Produkti</th><th>Barkodi</th><th>Sasia</th><th>Çmimi</th><th>Totali</th></tr></thead><tbody id="archivedInvoiceEditTable"></tbody></table></div>'; const table=document.getElementById("archivedInvoiceEditTable"); products.forEach((sale,index)=>{ const price=Number(sale.price)||0; const total=Number.isFinite(Number(sale.total))?Number(sale.total):(Number(sale.quantity)||0)*price; const qty=price>0?total/price:0; const row=document.createElement("tr"); row.innerHTML='<td>'+escapeHTML(sale.name||"Produkt")+'</td><td>'+escapeHTML(sale.barcode||"")+'</td><td><input value="'+(qty%1===0?qty:qty.toFixed(2))+'" readonly></td><td><input value="'+price+'" readonly></td><td><input class="archived-invoice-total" data-index="'+index+'" type="number" min="0" step="0.01" value="'+total+'"></td>'; table.appendChild(row); }); const modal=document.getElementById("archivedInvoiceModal"); if(modal)modal.classList.add("active"); }
 function closeArchivedInvoiceModal(event){ if(event&&event.target&&event.target.id!=="archivedInvoiceModal")return; const modal=document.getElementById("archivedInvoiceModal"); if(modal)modal.classList.remove("active"); archivedInvoiceEditNumber=null; }
-function saveArchivedInvoice(){ if(archivedInvoiceEditNumber===null)return; const inv=invoiceCards.find(x=>Number(x.invoiceNumber)===Number(archivedInvoiceEditNumber)); if(!inv)return; const products=Array.isArray(inv.products)?inv.products:[]; document.querySelectorAll("#archivedInvoiceEditTable .archived-invoice-total").forEach(input=>{ const i=Number(input.dataset.index); if(!products[i])return; const total=Math.max(0,Number(input.value)||0); const price=Number(products[i].price)||0; products[i].total=total; products[i].quantity=price>0?total/price:0; }); inv.products=products; localStorage.setItem("exelpos_invoice_cards",JSON.stringify(invoiceCards)); save(); closeArchivedInvoiceModal(); renderInvoiceCards(); renderSales(); renderMoney(); }
+function saveArchivedInvoice(){ if(archivedInvoiceEditNumber===null)return; const inv=invoiceCards.find(x=>Number(x.invoiceNumber)===Number(archivedInvoiceEditNumber)); if(!inv)return; const products=Array.isArray(inv.products)?inv.products:[]; document.querySelectorAll("#archivedInvoiceEditTable .archived-invoice-total").forEach(input=>{ const i=Number(input.dataset.index); if(!products[i])return; const total=Math.max(0,Number(input.value)||0); const price=Number(products[i].price)||0; products[i].total=total; products[i].quantity=price>0?total/price:0; }); inv.products=products; localStorage.setItem("Lightpos_invoice_cards",JSON.stringify(invoiceCards)); save(); closeArchivedInvoiceModal(); renderInvoiceCards(); renderSales(); renderMoney(); }
 window.openArchivedInvoice=openArchivedInvoice; window.closeArchivedInvoiceModal=closeArchivedInvoiceModal; window.saveArchivedInvoice=saveArchivedInvoice;
 
 function printArchivedInvoice(n){ const inv=invoiceCards.find(x=>Number(x.invoiceNumber)===Number(n)); if(!inv)return; const rows=(inv.products||[]).map(x=>({name:x.name||"Produkt",barcode:x.barcode||"",qty:Number(x.quantity)||0,total:(Number(x.quantity)||0)*(Number(x.price)||0)})); const total=rows.reduce((a,x)=>a+x.total,0); openReceiptPrint("FATURË #"+n+" - SHITJE",formatDateWithWeekday(currentDay),rows,total,""); }
@@ -6394,8 +6394,8 @@ function finishNewDay(){
     invoiceCards=[];
     invoiceCounter=0;
     currentInvoiceNumber=1;
-    localStorage.setItem("exelpos_invoice_counter", "0");
-    localStorage.setItem("exelpos_invoice_cards", "[]");
+    localStorage.setItem("Lightpos_invoice_counter", "0");
+    localStorage.setItem("Lightpos_invoice_cards", "[]");
 
     currentDay=getDate();
 
@@ -7629,7 +7629,7 @@ populateInventoryYears();
 
 <script>
 document.addEventListener("animationend", function(event){
-    if(event.animationName === "exelposCleanPageIn"){
+    if(event.animationName === "LightposCleanPageIn"){
         event.target.classList.remove("page-switching");
     }
 });
