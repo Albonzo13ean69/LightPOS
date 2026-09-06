@@ -1347,6 +1347,21 @@ input[type="number"] {
   appearance: textfield;
 }
 </style>
+
+<style id="final-folder-add-modal-fix">
+/* Shto Folder modal must be above fixed Produktet folder controls */
+#productFolderModal,
+#productFolderModal.closing{
+    position:fixed !important;
+    inset:0 !important;
+    z-index:2147483646 !important;
+    isolation:isolate !important;
+}
+#productFolderModal .modal{
+    position:relative;
+    z-index:2147483647 !important;
+}
+</style>
 </head>
 
 <body>
