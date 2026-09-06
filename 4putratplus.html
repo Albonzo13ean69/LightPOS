@@ -1798,7 +1798,7 @@ input[type="number"] {
                 <input
                     type="text"
                     id="moneyTextSearch"
-                    placeholder="🔎 Kërko përshkrimin..."
+                    placeholder="🔎 Kërko përshkrimin ose arkën..."
                     oninput="renderMoney()"
                 >
 
@@ -1819,6 +1819,7 @@ input[type="number"] {
                     <tr>
                         <th>Data</th>
                         <th>Përshkrimi</th>
+                        <th>Arka</th>
                         <th>Lloji</th>
                         <th>Shuma</th>
                         <th></th>
@@ -1832,7 +1833,7 @@ input[type="number"] {
 
                     <tr class="total-row">
 
-                        <td colspan="3">
+                        <td colspan="4">
                             GJENDJA
                         </td>
 
@@ -2347,6 +2348,18 @@ input[type="number"] {
                     <input
                         id="moneyDescription"
                         placeholder="p.sh. Qera"
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Arka</label>
+
+                    <input
+                        id="moneyArka"
+                        type="text"
+                        placeholder="p.sh. Arka 1"
                     >
 
                 </div>
@@ -5794,6 +5807,10 @@ function addMoneyMovement(){
     ).value="";
 
     document.getElementById(
+        "moneyArka"
+    ).value="";
+
+    document.getElementById(
         "moneyAmount"
     ).value="";
 
@@ -5914,6 +5931,11 @@ function saveMoneyMovement(){
             "moneyDescription"
         ).value.trim();
 
+    const arka=
+        document.getElementById(
+            "moneyArka"
+        ).value.trim();
+
     const type=
         document.getElementById(
             "moneyType"
@@ -5945,6 +5967,8 @@ function saveMoneyMovement(){
         dateKey:dateKey(),
 
         description:description,
+
+        arka:arka,
 
         type:type,
 
@@ -6064,9 +6088,8 @@ function renderMoney(){
                     Number(yearFilter);
 
                 const text=
-                    String(
-                        movement.description||""
-                    )
+                    (String(movement.description||"") + " " +
+                     String(movement.arka||""))
                     .toLowerCase();
 
                 const textMatch=
@@ -6163,6 +6186,14 @@ function renderMoney(){
                               `
                             : ""
                     }
+
+                </td>
+
+                <td>
+
+                    ${escapeHTML(
+                        movement.arka || ""
+                    )}
 
                 </td>
 
@@ -7615,6 +7646,20 @@ document.addEventListener("click", function(event){
 });
 </script>
 
+
+<style id="final-folder-delete-modal-fix">
+/* Folder delete confirmation must be above fixed Produktet folder controls */
+#confirmModal,
+#confirmModal.closing{
+    position:fixed !important;
+    inset:0 !important;
+    z-index:10000 !important;
+}
+#confirmModal .modal{
+    position:relative;
+    z-index:10001 !important;
+}
+</style>
 </body>
 
 <style id="follow-screen-layout-fix">
